@@ -1,0 +1,16 @@
+sudo: required
+
+lang: generic
+
+services:
+  - docker
+
+before_install:
+  - echo "start creating an image with dockerfile"
+  - docker build -t meena2003/docker-react-app -f Dockerfile.dev .
+
+script:
+  - docker run -e CI=true meena2003/docker-react-app npm run test -- --coverage
+
+after_success:
+  - echo "test success"
